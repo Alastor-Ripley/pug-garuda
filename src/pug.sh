@@ -23,8 +23,8 @@ pug_install() {
     echo "${bold}${cyan}  ->${white} Creating packages lists..."
     echo "${bold}${cyan}  ->${white} Generating gist links..."
 
-    GIST_NAT=$(pacman -Qqen | gist -p -f "${PACMANFILE}" -d 'Pacman package list.')
-    GIST_AUR=$(pacman -Qqem | gist -p -f "${AURFILE}" -d 'AUR package list.')
+    GIST_NAT=$(pacman -Qen | gist -p -f "${PACMANFILE}" -d 'Pacman package list.')
+    GIST_AUR=$(pacman -Qem | gist -p -f "${AURFILE}" -d 'AUR package list.')
 
     echo "GIST_NAT=${GIST_NAT}" | \
         sed 's/https:\/\/gist.github.com\///g' > "${pkgdir}/etc/pug";
@@ -67,7 +67,7 @@ pug_update() {
         exit 1
     fi
 
-    pacman -Qqen > /tmp/pacman.list
+    pacman -Qen > /tmp/pacman.list
     if ! diff /tmp/pacman.gist /tmp/pacman.list > /dev/null 2>&1; then
         if ! cat /tmp/pacman.list | gist -u "${GIST_NAT}" -f "${PACMANFILE}"; then
             echo "${bold}${red}::${white} Failed to update.${normal}"
@@ -80,7 +80,7 @@ pug_update() {
         exit 1
     fi
 
-    pacman -Qqem > /tmp/aur.list
+    pacman -Qem > /tmp/aur.list
     if ! diff /tmp/aur.gist /tmp/aur.list > /dev/null 2>&1; then
         if ! cat /tmp/aur.list | gist -u "${GIST_AUR}" -f "${AURFILE}"; then
             echo "${bold}${red}::${white} Failed to update.${normal}"
