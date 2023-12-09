@@ -37,8 +37,8 @@ $ pacaur -S pug
 ### Manually
 
 ```bash
-$ git clone https://github.com/Ventto/pug.git
-$ cd pug
+$ git clone [https://github.com/Ventto/pug.git](https://github.com/Alastor-Ripley/pug-garuda.git)
+$ cd pug-garuda
 $ sudo make install (default: INSTALLGIST=1, gists creation)
 # Or Uninstall
 $ sudo make uninstall
